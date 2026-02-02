@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vixelboy | Digital Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-yellow: #fdee06;
+            --dark-bg: #0a0a0c;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #e0e0e0;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-cyber {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Scanline Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 100;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* Glitch Animation */
+        .glitch {
+            position: relative;
+            color: white;
+            animation: glitch-skew 1s infinite linear alternate-reverse;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-cyan);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(62px, 9999px, 42px, 0); }
+            40% { clip: rect(10px, 9999px, 86px, 0); }
+            60% { clip: rect(56px, 9999px, 12px, 0); }
+            80% { clip: rect(85px, 9999px, 33px, 0); }
+            100% { clip: rect(48px, 9999px, 67px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(30px, 9999px, 20px, 0); }
+            40% { clip: rect(50px, 9999px, 70px, 0); }
+            60% { clip: rect(15px, 9999px, 45px, 0); }
+            80% { clip: rect(80px, 9999px, 10px, 0); }
+            100% { clip: rect(5px, 9999px, 55px, 0); }
+        }
+
+        /* Custom Cyber Buttons */
+        .cyber-btn {
+            position: relative;
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 85% 100%, 0% 100%);
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+        .cyber-btn:hover {
+            background: var(--neon-cyan);
+            color: black;
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .cyber-card {
+            background: rgba(20, 20, 25, 0.8);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-left: 4px solid var(--neon-pink);
+            transition: all 0.3s ease;
+        }
+
+        .cyber-card:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+        }
+
+        .neon-text-cyan { text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan); }
+        .neon-text-pink { text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink); }
+
+        .status-bar {
+            background: linear-gradient(90deg, var(--neon-pink) 0%, transparent 100%);
+            height: 2px;
+            width: 100%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-pink);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-opacity-90 bg-black border-b border-cyan-900 px-6 py-4 flex justify-between items-center backdrop-blur-md">
+        <div class="text-2xl font-bold font-cyber text-cyan-400 tracking-tighter">
+            VXL<span class="text-pink-500"> M . I .T</span>- 4.0
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-cyber">
+            <a href="#hero" class="hover:text-cyan-400 transition tracking-widest">[ BERANDA ]</a>
+            <a href="#projects" class="hover:text-cyan-400 transition tracking-widest">[ PROYEK ]</a>
+            <a href="#skills" class="hover:text-cyan-400 transition tracking-widest">[ SKILL ]</a>
+            <a href="#contact" class="hover:text-cyan-400 transition tracking-widest">[ KONTAK ]</a>
+        </div>
+        <div class="text-[10px] text-pink-500 font-mono animate-pulse">
+            SISTEM: AKTIF <br> LOKASI: CIMAUNG, BANDUNG 
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex flex-col justify-center items-center px-6 pt-20 relative overflow-hidden">
+        <!-- Background Grid Decoration -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(var(--neon-cyan) 1px, transparent 1px); background-size: 40px 40px;"></div>
+        
+        <div class="z-10 text-center">
+            <p class="text-cyan-400 font-mono mb-2 tracking-[0.5em] text-xs">Membangun Masa Depan Digital, Dengan Kombinasi Antara Akademik dan Ethical Hacking</p>
+            <h1 class="text-6xl md:text-8xl font-bold mb-4 glitch" data-text="VIXELBOY">VIXELBOY</h1>
+            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-8 font-light">
+                Pentester, UI/UX, Media, AI Prompt Engineer, Chat Bot AI, Jockey
+            </p>
+            <div class="flex space-x-4 justify-center">
+                <button class="cyber-btn text-lg" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">LIHAT DATA_PROYEK</button>
+                <button class="border border-pink-500 text-pink-500 px-6 py-2 hover:bg-pink-500 hover:text-black transition uppercase font-cyber tracking-widest" style="clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 30%);">DOWNLOAD_CV</button>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-10 hidden lg:block">
+            <div class="text-xs font-mono text-cyan-800">
+                CORE_TEMP: 34°C <br>
+                UPLINK: STABIL <br>
+                RAM_USAGE: 42%
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Section -->
+    <section id="projects" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="flex items-center mb-12">
+            <h2 class="text-3xl font-bold font-cyber text-pink-500 mr-4 italic">MY PROJECT</h2>
+            <div class="status-bar flex-1"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 -->
+            <div class="cyber-card p-6 group">
+                <div class="h-48 bg-gray-900 mb-4 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=600" alt="Sistem Neural" class="w-full h-full object-cover opacity-50 group-hover:scale-110 group-hover:opacity-80 transition duration-500 grayscale hover:grayscale-0">
+                    <div class="absolute top-2 right-2 bg-pink-600 text-[10px] px-2 py-1 font-bold">AKADEMIK</div>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-cyan-400">YOUR PARTNER TKJ</h3>
+                <p class="text-sm text-gray-400 mb-4">Integrasi Artifial Intelegence yang di fokuskan untuk membantu anak SMK TKJ/TJKT dalam belajar menggunakan API sensorik terbaru, yang dibungkus dalam bentuk chat bot ai.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="text-[10px] bg-cyan-900 text-cyan-200 px-2 py-1">TKJ</span>
+                    <span class="text-[10px] bg-cyan-900 text-cyan-200 px-2 py-1">TJKT</span>
+                    <span class="text-[10px] bg-cyan-900 text-cyan-200 px-2 py-1">RPL</span>
+                </div>
+                <a href="#" class="text-xs font-cyber text-pink-500 hover:text-white transition">COBA PROJECT INI ></a>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="cyber-card p-6 group border-l-cyan-400" style="border-left-color: var(--neon-cyan)">
+                <div class="h-48 bg-gray-900 mb-4 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=600" alt="Enkripsi Data" class="w-full h-full object-cover opacity-50 group-hover:scale-110 group-hover:opacity-80 transition duration-500 grayscale hover:grayscale-0">
+                    <div class="absolute top-2 right-2 bg-cyan-600 text-[10px] px-2 py-1 font-bold">ETHICAL HACKING</div>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-pink-500">FLOOD SCRIPT</h3>
+                <p class="text-sm text-gray-400 mb-4">Sebuah script yang di buat untuk Penetration Testing terhadap sebuah web, bertujuan untuk mengetest keamanan.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="text-[10px] bg-pink-900 text-pink-200 px-2 py-1">PYTHON</span>
+                    <span class="text-[10px] bg-pink-900 text-pink-200 px-2 py-1">TERMINAL</span>
+                    <span class="text-[10px] bg-pink-900 text-pink-200 px-2 py-1">IP CHANGER</span>
+                </div>
+                <a href="#" class="text-xs font-cyber text-cyan-400 hover:text-white transition">COBA PENTEST ></a>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="cyber-card p-6 group">
+                <div class="h-48 bg-gray-900 mb-4 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&q=80&w=600" alt="Virtual City" class="w-full h-full object-cover opacity-50 group-hover:scale-110 group-hover:opacity-80 transition duration-500 grayscale hover:grayscale-0">
+                    <div class="absolute top-2 right-2 bg-yellow-600 text-black text-[10px] px-2 py-1 font-bold">SYSTEM</div>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-cyan-400">KEYLOGGER</h3>
+                <p class="text-sm text-gray-400 mb-4">Penyebaran, Perekaman, dan Pengiriman Data berbasis perangkat lunak, dan mencegat signal keyboard pada tingkat sistem.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="text-[10px] bg-cyan-900 text-cyan-200 px-2 py-1">PHISING</span>
+                    <span class="text-[10px] bg-cyan-900 text-cyan-200 px-2 py-1">MALWARE</span>
+                    <span class="text-[10px] bg-cyan-900 text-cyan-200 px-2 py-1">FAKE WEB</span>
+                </div>
+                <a href="#" class="text-xs font-cyber text-pink-500 hover:text-white transition">COBA SISTEM INI ></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-black bg-opacity-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center mb-12 justify-end">
+                <div class="status-bar flex-1 bg-gradient-to-l from-cyan-500 to-transparent"></div>
+                <h2 class="text-3xl font-bold font-cyber text-cyan-400 ml-4 italic">HARD_SKILLS</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-6 border border-gray-800 hover:border-cyan-500 transition">
+                    <div class="text-4xl mb-2">⚡</div>
+                    <div class="font-cyber text-sm">UI/UX | DESIGN</div>
+                    <div class="w-full bg-gray-900 h-1 mt-3">
+                        <div class="bg-cyan-500 h-full" style="width: 95%"></div>
+                    </div>
+                </div>
+                <div class="p-6 border border-gray-800 hover:border-pink-500 transition">
+                    <div class="text-4xl mb-2">📡</div>
+                    <div class="font-cyber text-sm">PENTESTER</div>
+                    <div class="w-full bg-gray-900 h-1 mt-3">
+                        <div class="bg-pink-500 h-full" style="width: 88%"></div>
+                    </div>
+                </div>
+                <div class="p-6 border border-gray-800 hover:border-yellow-500 transition">
+                    <div class="text-4xl mb-2">🛡️</div>
+                    <div class="font-cyber text-sm">ETHICAL HACKING</div>
+                    <div class="w-full bg-gray-900 h-1 mt-3">
+                        <div class="bg-yellow-500 h-full" style="width: 82%"></div>
+                    </div>
+                </div>
+                <div class="p-6 border border-gray-800 hover:border-white transition">
+                    <div class="text-4xl mb-2">🧠</div>
+                    <div class="font-cyber text-sm">AI POWERED DEVELOPER</div>
+                    <div class="w-full bg-gray-900 h-1 mt-3">
+                        <div class="bg-white h-full" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 max-w-3xl mx-auto">
+        <div class="cyber-card p-1 bg-gradient-to-r from-pink-500 to-cyan-500">
+            <div class="bg-black p-8">
+                <h2 class="text-3xl font-bold font-cyber mb-6 text-center">INISIASI_KOMUNIKASI</h2>
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-cyber text-cyan-400 mb-1">IDENTITAS_USER</label>
+                        <input type="text" class="w-full bg-gray-900 border border-gray-800 p-3 text-white focus:border-pink-500 outline-none transition" placeholder="NAMA_ANDA">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-cyber text-cyan-400 mb-1">ALAMAT_DATA_UPLINK</label>
+                        <input type="email" class="w-full bg-gray-900 border border-gray-800 p-3 text-white focus:border-pink-500 outline-none transition" placeholder="EMAIL@DOMAIN.COM">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-cyber text-cyan-400 mb-1">TRANSMISI_PESAN</label>
+                        <textarea class="w-full bg-gray-900 border border-gray-800 p-3 text-white focus:border-pink-500 outline-none transition h-32" placeholder="TULIS_PESAN_ANDA_DI_SINI..."></textarea>
+                    </div>
+                    <button type="button" class="w-full cyber-btn py-4 text-xl font-cyber" onclick="sendMessage()">KIRIM_DATA</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="statusMessage" class="hidden mt-6 p-4 text-center font-mono text-sm bg-cyan-900 text-cyan-100 border border-cyan-400">
+            TRANSMISI BERHASIL: PESAN TELAH DIKIRIM KE ENKRIPSI_CORE.
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-900 text-center text-gray-600 text-xs font-mono">
+        <div class="mb-4 flex justify-center space-x-6">
+            <a href="#" class="hover:text-cyan-400 transition">GITHUB</a>
+            <a href="#" class="hover:text-pink-400 transition">API KEYS</a>
+            <a href="#" class="hover:text-yellow-400 transition">TERMINAL</a>
+        </div>
+        <div>4.0 FROM VIXELBOY. SEMUA HAK DILINDUNGI. MUHAMAD IKBAL TAWAKAL.</div>
+    </footer>
+
+    <script>
+        function sendMessage() {
+            const status = document.getElementById('statusMessage');
+            status.classList.remove('hidden');
+            document.getElementById('contactForm').reset();
+            
+            setTimeout(() => {
+                status.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Matrix-like background effect for some elements could be added here
+        console.log("Sistem Portofolio Aktif. Selamat datang, di Vixel Area.");
+    </script>
+</body>
+</html>
